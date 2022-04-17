@@ -16,8 +16,12 @@ For help getting started with Flutter, view our
 mobile development, and a full API reference.
 
 ## Designs
+Design Credits Uvento App
+https://dribbble.com/shots/9519342-UVENTO-App-Event-app-Exploration
+
 
 ![](https://github.com/Abhijithsp/flutter_challenge/blob/main/assets/screenshots/home%20screen-mdpi.png)
+
 
 ## Screenshots/Videos
 
