@@ -1,6 +1,6 @@
 # flutter_challenge
 
-A new Flutter project.
+A Flutter Ui Challenge.
 
 ## Getting Started
 
