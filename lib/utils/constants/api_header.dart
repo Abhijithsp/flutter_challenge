@@ -1,11 +1,10 @@
 import '../services/get_storage_service.dart';
 
-class API_Header {
+class ApiHeader {
   Map<String, String> getHeader() {
-    Map<String, String> requestHeaders;
-    return requestHeaders = {
+    return {
       'Accept': 'application/json',
-      "Authorization": "Bearer " + getStorage().getUserToken()
+      'Authorization': 'Bearer ${GetStorageService().getUserToken()}',
     };
   }
 }

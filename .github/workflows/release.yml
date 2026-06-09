@@ -1,0 +1,86 @@
+name: Build and Release
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    tags:
+      - 'v*'  # Trigger release on version tags like v1.0.0
+  pull_request:
+    branches:
+      - main
+      - master
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build Release APK
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build APK
+        run: flutter build apk --release
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
+
+  release:
+    name: Create GitHub Release
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download APK artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: release-apk
+          path: build/app/outputs/flutter-apk
+
+      - name: Create GitHub Release and Upload Asset
+        uses: softprops/action-gh-release@v2
+        with:
+          files: build/app/outputs/flutter-apk/app-release.apk
+          name: Release ${{ github.ref_name }}
+          body: |
+            ## Uvento Events Release ${{ github.ref_name }}
+            
+            We are excited to share the latest release of Uvento Events.
+            
+            ### What's New
+            - Updated to Flutter 3.44.0 and Dart 3.x
+            - Refactored UI widgets to be reusable and modern (Material 3)
+            - Upgraded all packages to the latest versions
+            - Standardized CI/CD workflow with GitHub Actions
+            
+            ### Assets Included
+            - **`app-release.apk`**: Android Release APK
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

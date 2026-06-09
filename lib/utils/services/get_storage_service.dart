@@ -1,10 +1,7 @@
 import 'package:get_storage/get_storage.dart';
 
-///Functions for sharedprefrence  functions only
-///
-/// These services folder can use  functions for fetch location ,Get image from gallery etc,put that in a separate file
-
-class getStorage {
+/// Functions for shared_preferences functionality
+class GetStorageService {
   final storage = GetStorage();
 
   void setUserToken(String token) {
@@ -12,7 +9,7 @@ class getStorage {
   }
 
   String getUserToken() {
-    return storage.read('token');
+    return storage.read('token') ?? '';
   }
 
   void setLoggedIn(bool status) {
@@ -28,7 +25,7 @@ class getStorage {
   }
 
   String getUserId() {
-    return storage.read("id");
+    return storage.read("id") ?? '';
   }
 
   void setUserTypeId(String id) {
@@ -36,7 +33,7 @@ class getStorage {
   }
 
   String getUserTypeId() {
-    return storage.read("user_type_id");
+    return storage.read("user_type_id") ?? '';
   }
 
   void setUsername(String name) {
@@ -44,7 +41,7 @@ class getStorage {
   }
 
   String getUsername() {
-    return storage.read("username");
+    return storage.read("username") ?? '';
   }
 
   void setEmpId(String id) {
@@ -52,7 +49,7 @@ class getStorage {
   }
 
   String getEmpId() {
-    return storage.read("employee_id");
+    return storage.read("employee_id") ?? '';
   }
 
   void setFranchiseId(String id) {
@@ -60,6 +57,6 @@ class getStorage {
   }
 
   String getFranchiseId() {
-    return storage.read("franchise_id");
+    return storage.read("franchise_id") ?? '';
   }
 }

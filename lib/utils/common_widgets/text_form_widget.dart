@@ -12,6 +12,7 @@ class TextFormFieldWidget extends StatefulWidget {
   final TextInputAction actionKeyboard;
 
   const TextFormFieldWidget({
+    super.key,
     required this.hintText,
     required this.focusNode,
     required this.textInputType,
@@ -22,7 +23,7 @@ class TextFormFieldWidget extends StatefulWidget {
   });
 
   @override
-  _TextFormFieldWidgetState createState() => _TextFormFieldWidgetState();
+  State<TextFormFieldWidget> createState() => _TextFormFieldWidgetState();
 }
 
 class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
@@ -71,25 +72,15 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
   }
 }
 
-// Widget _buildCustomername() {
-//   return TextFormFieldWidget(
-//     hintText: "Customer Name",
-//     textInputType: TextInputType.text,
-//     actionKeyboard: TextInputAction.next,
-//     controller: _nameController,
-//     focusNode: _nameControllerFocus,
-//     defaultText: 'Customer Name', // Don't pass image in case of no prefix Icon
-//   );
-// }
 String? commonValidation(String value, String messageError) {
-  var required = requiredValidator(value, messageError);
+  final required = requiredValidator(value, messageError);
   if (required != null) {
     return required;
   }
   return null;
 }
 
-String? requiredValidator(value, messageError) {
+String? requiredValidator(String value, String messageError) {
   if (value.isEmpty) {
     return messageError;
   }
