@@ -52,8 +52,13 @@ class _IntroScreenState extends State<IntroScreen> {
               height: 250,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: color_gold.withOpacity(0.12),
-                blurRadius: 90,
+                boxShadow: [
+                  BoxShadow(
+                    color: color_gold.withOpacity(0.12),
+                    blurRadius: 90,
+                    spreadRadius: 40,
+                  ),
+                ],
               ),
             ),
           ),
